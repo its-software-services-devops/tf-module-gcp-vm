@@ -1,1 +1,0 @@
-# tf-module-gcp-vm
