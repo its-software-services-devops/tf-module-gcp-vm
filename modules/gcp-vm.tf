@@ -4,6 +4,11 @@ terraform {
   }
 }
 
+locals {
+  script_name = basename(var.provisioner_local_path)
+  script_path = dirname(var.provisioner_local_path)
+}
+
 resource "google_compute_instance" "compute" {
   name         = "${var.compute_name}-${var.compute_seq}"
   machine_type = var.vm_machine_type
@@ -26,14 +31,14 @@ resource "google_compute_instance" "compute" {
   }
 
   provisioner "file" {
-    source      = var.provisioner_local_path
-    destination = var.provisioner_remote_path 
+    source      = "${local.script_path}/" #Copy files in the folder to destination
+    destination = var.provisioner_remote_path
   }
 
   provisioner "remote-exec" {
     inline = [
-      "chmod 755 ${var.provisioner_remote_path}",
-      var.provisioner_remote_path
+      "chmod 755 ${var.provisioner_remote_path}/${local.script_name}",
+      "${var.provisioner_remote_path}/${local.script_name}"
     ]
   }
 
