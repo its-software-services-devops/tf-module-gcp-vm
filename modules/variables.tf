@@ -33,6 +33,12 @@ variable "vm_service_account" {
   default     = ""
 }
 
+variable "vm_deletion_protection" {
+  description = "Delete protection"
+  type        = bool
+  default     = true
+}
+
 variable "public_key_file" {
   description = "Path of your SSH public key"
   type        = string
