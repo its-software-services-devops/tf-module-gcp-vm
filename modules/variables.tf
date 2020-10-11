@@ -78,7 +78,7 @@ variable "provisioner_local_path" {
 variable "provisioner_remote_path" {
   description = "Remote path of the provisioner script"
   type        = string
-  default     = "/tmp/dummy.bash"
+  default     = "/tmp"
 }
 
 variable "default_ip_address" {
