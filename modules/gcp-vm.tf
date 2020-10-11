@@ -8,6 +8,7 @@ resource "google_compute_instance" "compute" {
   name         = "${var.compute_name}-${var.compute_seq}"
   machine_type = var.vm_machine_type
   zone         = var.vm_machine_zone
+  deletion_protection = var.vm_deletion_protection
 
   tags = var.vm_tags
 
@@ -31,7 +32,8 @@ resource "google_compute_instance" "compute" {
 
   provisioner "remote-exec" {
     inline = [
-      "chmod 755 ${var.provisioner_remote_path}"
+      "chmod 755 ${var.provisioner_remote_path}",
+      var.provisioner_remote_path
     ]
   }
 
