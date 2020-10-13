@@ -81,12 +81,6 @@ variable "provisioner_remote_path" {
   default     = "/tmp"
 }
 
-variable "default_ip_address" {
-  description = "Remote IP address to ssh"
-  type        = string
-  default     = ""
-}
-
 variable "external_disks" {
   type = list(object({    
     index = number #User for hint the for_each loop the current index being used, start with 1
