@@ -39,6 +39,11 @@ variable "vm_deletion_protection" {
   default     = true
 }
 
+variable "create_nat_ip" {
+  type    = bool
+  default = true
+}
+
 variable "public_key_file" {
   description = "Path of your SSH public key"
   type        = string
