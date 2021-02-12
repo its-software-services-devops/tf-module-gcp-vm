@@ -42,6 +42,7 @@ module "compute-gcp-vm-00" {
   vm_deletion_protection = false
   provisioner_local_path = "scripts/provisioner.bash"
   ssh_user         = "cicd"
+  create_nat_ip    = false
   external_disks   = [{index = 1, source = google_compute_disk.disk00.id, mode = "READ_WRITE"}]
   network_configs  = [{index = 1, network = "default", nat_ip = ""}] #google_compute_address.static.address
 }
