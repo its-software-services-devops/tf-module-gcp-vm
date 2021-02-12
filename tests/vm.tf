@@ -34,15 +34,16 @@ module "compute-gcp-vm-00" {
   compute_seq     = "00"
   vm_tags         = ["jenkins-master", "http-server"]
   vm_service_account = "devops-cicd@its-artifact-commons.iam.gserviceaccount.com"
-  boot_disk_image  = "projects/centos-cloud/global/images/centos-7-v20200910"
+  boot_disk_image  =  "projects/centos-cloud/global/images/centos-7-v20200910" #"projects/cos-cloud/global/images/cos-beta-89-16108-0-69"
   public_key_file  = "D:/dev/keys/id_rsa.pub"
   private_key_file = "D:/dev/keys/id_rsa"
   vm_machine_type  = "n1-standard-1"
   vm_machine_zone  = "asia-southeast1-b"
   vm_deletion_protection = false
+  provisioner_remote_path = "/home/cicd"
   provisioner_local_path = "scripts/provisioner.bash"
   ssh_user         = "cicd"
-  create_nat_ip    = false
+  create_nat_ip    = true
   external_disks   = [{index = 1, source = google_compute_disk.disk00.id, mode = "READ_WRITE"}]
   network_configs  = [{index = 1, network = "default", nat_ip = ""}] #google_compute_address.static.address
 }

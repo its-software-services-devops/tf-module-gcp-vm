@@ -10,6 +10,8 @@ locals {
 }
 
 resource "google_compute_instance" "compute" {
+  metadata_startup_script = "mount -o remount,exec /home" #To make provisioner script runable on CoreOs
+
   name         = "${var.compute_name}-${var.compute_seq}"
   machine_type = var.vm_machine_type
   zone         = var.vm_machine_zone
@@ -40,6 +42,10 @@ resource "google_compute_instance" "compute" {
       "chmod 755 ${var.provisioner_remote_path}/${local.script_name}",
       "${var.provisioner_remote_path}/${local.script_name}"
     ]
+
+    connection {
+      script_path = "${var.provisioner_remote_path}/bootstrap.bash"
+    }
   }
 
   boot_disk {
@@ -74,10 +80,6 @@ resource "google_compute_instance" "compute" {
             nat_ip = var.network_configs[network_interface.value.index].nat_ip
           }
         }
-
-#          access_config {
-#            nat_ip = var.network_configs[network_interface.value.index].nat_ip
-#          }
       }
   }
 
