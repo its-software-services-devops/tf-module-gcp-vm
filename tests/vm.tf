@@ -30,7 +30,7 @@ resource "google_compute_disk" "disk00" {
 
 module "compute-gcp-vm-00" {
   source          = "../modules"
-  compute_name    = "terraform-vm-module-test"
+  compute_name    = "terraform-vm-module-test-output"
   compute_seq     = "00"
   vm_tags         = ["jenkins-master", "http-server"]
   vm_service_account = "devops-cicd@its-artifact-commons.iam.gserviceaccount.com"
@@ -42,8 +42,9 @@ module "compute-gcp-vm-00" {
   vm_deletion_protection = false
   provisioner_remote_path = "/home/cicd"
   provisioner_local_path = "scripts/provisioner.bash"
+  startup_script_local_path = "scripts/startup.bash"
   ssh_user         = "cicd"
-  create_nat_ip    = true
+  create_nat_ip    = false
   external_disks   = [{index = 1, source = google_compute_disk.disk00.id, mode = "READ_WRITE"}]
   network_configs  = [{index = 1, network = "default", nat_ip = ""}] #google_compute_address.static.address
 }
