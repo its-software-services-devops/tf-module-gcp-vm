@@ -74,6 +74,12 @@ variable "boot_disk_size" {
   default     = 100
 }
 
+variable "startup_script_local_path" {
+  description = "Local path of the startup script"
+  type        = string
+  default     = ""
+}
+
 variable "provisioner_local_path" {
   description = "Local path of the provisioner script"
   type        = string

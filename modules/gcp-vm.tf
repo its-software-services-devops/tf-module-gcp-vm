@@ -10,9 +10,9 @@ locals {
 }
 
 resource "google_compute_instance" "compute" {
-  metadata_startup_script = "mount -o remount,exec /home" #To make provisioner script runable on CoreOs
-
-  name         = "${var.compute_name}-${var.compute_seq}"
+  metadata_startup_script =  var.startup_script_local_path != "" ? file(var.startup_script_local_path) : ""
+  
+  name         = var.compute_seq != "" ? "${var.compute_name}-${var.compute_seq}" : var.compute_name
   machine_type = var.vm_machine_type
   zone         = var.vm_machine_zone
   deletion_protection = var.vm_deletion_protection
