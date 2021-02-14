@@ -31,7 +31,7 @@ resource "google_compute_disk" "disk00" {
 module "compute-gcp-vm-00" {
   source          = "../modules"
   compute_name    = "terraform-vm-module-test-output"
-  compute_seq     = "00"
+  compute_seq     = ""
   vm_tags         = ["jenkins-master", "http-server"]
   vm_service_account = "devops-cicd@its-artifact-commons.iam.gserviceaccount.com"
   boot_disk_image  =  "projects/centos-cloud/global/images/centos-7-v20200910" #"projects/cos-cloud/global/images/cos-beta-89-16108-0-69"
@@ -44,7 +44,7 @@ module "compute-gcp-vm-00" {
   provisioner_local_path = "scripts/provisioner.bash"
   startup_script_local_path = "scripts/startup.bash"
   ssh_user         = "cicd"
-  create_nat_ip    = false
+  create_nat_ip    = true
   external_disks   = [{index = 1, source = google_compute_disk.disk00.id, mode = "READ_WRITE"}]
   network_configs  = [{index = 1, network = "default", nat_ip = ""}] #google_compute_address.static.address
 }

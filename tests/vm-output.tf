@@ -1,5 +1,5 @@
 output "internal-ip" {
-  value = module.compute-gcp-vm-00.instance_provate_ip_addr
+  value = module.compute-gcp-vm-00.instance_private_ip_addr
 }
 
 output "nat-ip" {
