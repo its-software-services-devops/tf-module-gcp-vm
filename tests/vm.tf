@@ -16,11 +16,7 @@ provider "google" {
   region      = "asia-southeast1"
   credentials = file("D:/dev/keys/its-artifact-commons-6eb8e8c315b3.json")
 }
-/*
-resource "google_compute_address" "static" {
-  name = "terraform-public-ip-001"
-}
-*/
+
 resource "google_compute_disk" "disk00" {
   name  = "terraform-vm-module-test"
   type  = "pd-ssd"
@@ -32,7 +28,7 @@ module "compute-gcp-vm-00" {
   source          = "../modules"
   compute_name    = "terraform-vm-module-test-output"
   compute_seq     = ""
-  vm_tags         = ["jenkins-master", "http-server"]
+  vm_tags         = ["http-server"]
   vm_service_account = "devops-cicd@its-artifact-commons.iam.gserviceaccount.com"
   boot_disk_image  =  "projects/centos-cloud/global/images/centos-7-v20200910" #"projects/cos-cloud/global/images/cos-beta-89-16108-0-69"
   public_key_file  = "D:/dev/keys/id_rsa.pub"
@@ -45,6 +41,7 @@ module "compute-gcp-vm-00" {
   startup_script_local_path = "scripts/startup.bash"
   ssh_user         = "cicd"
   create_nat_ip    = true
+  remote_exec_by_nat_ip = false
   external_disks   = [{index = 1, source = google_compute_disk.disk00.id, mode = "READ_WRITE"}]
   network_configs  = [{index = 1, network = "default", nat_ip = ""}] #google_compute_address.static.address
 }

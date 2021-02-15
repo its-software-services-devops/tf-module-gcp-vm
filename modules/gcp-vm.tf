@@ -24,7 +24,7 @@ resource "google_compute_instance" "compute" {
   }
 
   connection {
-    host        = self.network_interface.0.access_config.0.nat_ip
+    host        = var.remote_exec_by_nat_ip ? self.network_interface.0.access_config.0.nat_ip : self.network_interface.0.network_ip
     type        = "ssh"
     user        = var.ssh_user
     private_key = file(var.private_key_file)

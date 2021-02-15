@@ -39,6 +39,11 @@ variable "vm_deletion_protection" {
   default     = true
 }
 
+variable "remote_exec_by_nat_ip" {
+  type    = bool
+  default = true
+}
+
 variable "create_nat_ip" {
   type    = bool
   default = true
