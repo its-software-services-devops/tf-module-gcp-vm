@@ -41,7 +41,7 @@ module "compute-gcp-vm-00" {
   startup_script_local_path = "scripts/startup.bash"
   ssh_user         = "cicd"
   create_nat_ip    = true
-  remote_exec_by_nat_ip = false
+  remote_exec_by_nat_ip = true
   external_disks   = [{index = 1, source = google_compute_disk.disk00.id, mode = "READ_WRITE"}]
   network_configs  = [{index = 1, network = "default", nat_ip = ""}] #google_compute_address.static.address
 }

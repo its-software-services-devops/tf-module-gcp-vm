@@ -9,3 +9,6 @@ output "instance_private_ip_addr" {
   value = element(concat(google_compute_instance.compute.*.network_interface.0.network_ip, list("")), 0)
 }
 
+output "instance_id" {
+  value = google_compute_instance.compute.instance_id
+}
