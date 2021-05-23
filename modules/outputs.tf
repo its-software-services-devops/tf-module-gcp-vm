@@ -12,3 +12,7 @@ output "instance_private_ip_addr" {
 output "instance_id" {
   value = google_compute_instance.compute.instance_id
 }
+
+output "id" {
+  value = google_compute_instance.compute.id
+}
