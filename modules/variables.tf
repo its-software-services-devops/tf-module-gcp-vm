@@ -49,11 +49,6 @@ variable "create_nat_ip" {
   default = true
 }
 
-variable "prevent_destroy" {
-  type    = bool
-  default = false
-}
-
 variable "public_key_file" {
   description = "Path of your SSH public key"
   type        = string
