@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    google = "3.68.0"
+    google = "3.76.0"
   }
 }
 
@@ -18,6 +18,10 @@ resource "google_compute_instance" "compute" {
   deletion_protection = var.vm_deletion_protection
 
   tags = var.vm_tags
+
+  lifecycle {
+    ignore_changes = [attached_disk]
+  }
 
   metadata = {
    ssh-keys = "${var.ssh_user}:${file(var.public_key_file)}"
