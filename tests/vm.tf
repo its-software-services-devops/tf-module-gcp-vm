@@ -6,15 +6,14 @@ terraform {
   }
 
   backend "gcs" {
-    bucket  = "its-terraform-states"
+    bucket  = "evermed-devops-prod-terraform-state"
     prefix  = "tf-module-gcp-vm"
   }  
 }
 
 provider "google" {  
-  project     = "its-artifact-commons"
+  project     = "evermed-devops-prod"
   region      = "asia-southeast1"
-  credentials = file("D:/dev/keys/its-artifact-commons-6eb8e8c315b3.json")
 }
 
 resource "google_compute_disk" "disk00" {
@@ -28,11 +27,11 @@ module "compute-gcp-vm-00" {
   source          = "../modules"
   compute_name    = "terraform-vm-module-test-output"
   compute_seq     = ""
-  vm_tags         = ["http-server"]
-  vm_service_account = "devops-cicd@its-artifact-commons.iam.gserviceaccount.com"
+  vm_tags         = ["openvpn"]
+  #vm_service_account = "devops-cicd@its-artifact-commons.iam.gserviceaccount.com"
   boot_disk_image  =  "projects/centos-cloud/global/images/centos-7-v20200910" #"projects/cos-cloud/global/images/cos-beta-89-16108-0-69"
-  public_key_file  = "D:/dev/keys/id_rsa.pub"
-  private_key_file = "D:/dev/keys/id_rsa"
+  public_key_file  = "D:/id_rsa.pub"
+  private_key_file = "D:/id_rsa"
   vm_machine_type  = "n1-standard-1"
   vm_machine_zone  = "asia-southeast1-b"
   vm_deletion_protection = false
@@ -43,5 +42,5 @@ module "compute-gcp-vm-00" {
   create_nat_ip    = true
   remote_exec_by_nat_ip = true
   external_disks   = [{index = 1, source = google_compute_disk.disk00.id, mode = "READ_WRITE"}]
-  network_configs  = [{index = 1, network = "default", nat_ip = ""}] #google_compute_address.static.address
+  network_configs  = [{index = 1, network = "projects/evermed-infra-prod/regions/asia-southeast1/subnetworks/devops-nonprod-vpn", nat_ip = ""}] #google_compute_address.static.address
 }
