@@ -76,7 +76,7 @@ resource "google_compute_instance" "compute" {
     }]
 
       content  {
-        network = var.network_configs[network_interface.value.index].network
+        subnetwork = var.network_configs[network_interface.value.index].network
 
         dynamic "access_config" {
           for_each = var.create_nat_ip ? [1] : []
