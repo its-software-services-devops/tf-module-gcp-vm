@@ -39,11 +39,6 @@ variable "vm_deletion_protection" {
   default     = true
 }
 
-variable "remote_exec_by_nat_ip" {
-  type    = bool
-  default = true
-}
-
 variable "create_nat_ip" {
   type    = bool
   default = true
@@ -51,12 +46,6 @@ variable "create_nat_ip" {
 
 variable "public_key_file" {
   description = "Path of your SSH public key"
-  type        = string
-  default     = ""
-}
-
-variable "private_key_file" {
-  description = "Path of your SSH private key"
   type        = string
   default     = ""
 }
@@ -79,22 +68,16 @@ variable "boot_disk_size" {
   default     = 100
 }
 
-variable "startup_script_local_path" {
-  description = "Local path of the startup script"
+variable "user_data_path" {
+  description = "cloud-init configuration file path"
   type        = string
   default     = ""
 }
 
-variable "provisioner_local_path" {
-  description = "Local path of the provisioner script"
+variable "startup_script_local_path" {
+  description = "Local path of the startup script"
   type        = string
-  default     = "dummy.bash"
-}
-
-variable "provisioner_remote_path" {
-  description = "Remote path of the provisioner script"
-  type        = string
-  default     = "/tmp"
+  default     = ""
 }
 
 variable "external_disks" {
