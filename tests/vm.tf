@@ -26,17 +26,17 @@ resource "google_compute_disk" "disk00" {
 
 module "compute-gcp-vm-00" {
   source          = "../modules"
-  compute_name    = "terraform-vm-module-test-output"
+  compute_name    = "terraform-vm-module-1"
   compute_seq     = ""
   vm_tags         = ["unittest-terraform"]
   #vm_service_account = "devops-cicd@its-artifact-commons.iam.gserviceaccount.com"
-  boot_disk_image  =  "projects/cos-cloud/global/images/cos-93-16623-102-8"
+  boot_disk_image  = "projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20220204"
   public_key_file  = "D:/id_rsa.pub"
   vm_machine_type  = "n1-standard-1"
   vm_machine_zone  = "asia-southeast1-b"
   vm_deletion_protection = false
   startup_script_local_path = "scripts/startup.bash"
-  ssh_user         = "cicd"
+  ssh_user         = "devops"
   create_nat_ip    = false
   user_data_path   = "scripts/cloud-init.yaml"
   external_disks   = [{index = 1, source = google_compute_disk.disk00.id, mode = "READ_WRITE"}]
