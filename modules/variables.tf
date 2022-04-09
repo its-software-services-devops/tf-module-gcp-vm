@@ -95,6 +95,7 @@ variable "network_configs" {
     index                = number #User for hint the for_each loop the current index being used, start with 1
     network              = string
     nat_ip               = string
+    network_ip           = string
   }))
 
   default = []

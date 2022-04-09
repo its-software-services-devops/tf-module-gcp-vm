@@ -6,13 +6,13 @@ terraform {
   }
 
   backend "gcs" {
-    bucket  = "its-terraform-states"
+    bucket  = "nap-devops-nonprod-tf-module"
     prefix  = "tf-module-gcp-vm"
   }  
 }
 
 provider "google" {  
-  project     = "its-artifact-commons"
+  project     = "nap-devops-nonprod"
   region      = "asia-southeast1"
 }
 
@@ -40,5 +40,5 @@ module "compute-gcp-vm-00" {
   create_nat_ip    = false
   user_data_path   = "scripts/cloud-init.yaml"
   external_disks   = [{index = 1, source = google_compute_disk.disk00.id, mode = "READ_WRITE"}]
-  network_configs  = [{index = 1, network = "default", nat_ip = ""}] #google_compute_address.static.address
+  network_configs  = [{index = 1, network = "default", nat_ip = "", network_ip = "10.148.0.3"}] #google_compute_address.static.address
 }

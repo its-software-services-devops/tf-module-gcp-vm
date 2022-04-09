@@ -10,7 +10,9 @@ resource "google_compute_instance" "compute" {
   tags = var.vm_tags
 
   lifecycle {
-    //ignore_changes = [attached_disk] # We will need this config if use GCE to create K8S worker node
+    # We need this config if use GCE to create K8S worker node, to ignore dynamic disks attached
+    # To change anything about disk (disk size), we will need to do it manually, no need to do it as code.
+    ignore_changes = [attached_disk]
   }
 
   metadata = {
@@ -43,6 +45,7 @@ resource "google_compute_instance" "compute" {
 
       content  {
         subnetwork = var.network_configs[network_interface.value.index].network
+        network_ip = var.network_configs[network_interface.value.index].network_ip
 
         dynamic "access_config" {
           for_each = var.create_nat_ip ? [1] : []
